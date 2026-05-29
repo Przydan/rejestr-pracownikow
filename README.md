@@ -22,6 +22,7 @@ This is a Laravel 13 application designed for managing employee records with a n
 1. Clone the repository to `/var/www/rejestr-pracownikow`.
 2. Install dependencies:
    ```bash
+   composer update
    composer install
    npm install && npm run build
    ```
@@ -31,9 +32,12 @@ This is a Laravel 13 application designed for managing employee records with a n
    
    cp .env.example .env
    # Edit .env with your database credentials:
-   # DB_DATABASE=wsb_2025_K06_1
-   # DB_USERNAME=laravel_user
-   # DB_PASSWORD=ZAQ!2wsxToWszystkoZmienia
+    DB_CONNECTION=pgsql
+    # DB_HOST=127.0.0.1
+    # DB_PORT=5432
+    # DB_DATABASE=merito_2025_K06_1
+    # DB_USERNAME=postgres
+    # DB_PASSWORD=mysecretpassword
    ```
 4. Generate application key:
    ```bash
@@ -47,7 +51,15 @@ This is a Laravel 13 application designed for managing employee records with a n
    ```bash
    php artisan storage:link
    ```
-
+7. Run test
+   ```bash
+   make test
+   ```
+8. Run app 
+   ```bash
+   make serve
+   ```
+   
 ### Server Permissions
 Ensure the web server user (`www-data`) has ownership and write access to the necessary directories:
 ```bash
