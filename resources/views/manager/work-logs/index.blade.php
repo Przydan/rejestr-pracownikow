@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div x-data="{ showAddLogModal: false, selectedDate: '{{ date('Y-m-d') }}' }" class="max-w-7xl mx-auto space-y-8">
+<div x-data="{ showAddLogModal: {{ $errors->any() ? 'true' : 'false' }}, selectedDate: '{{ old('date', date('Y-m-d')) }}' }" class="max-w-7xl mx-auto space-y-8">
     <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
         <div>
             <h1 class="text-3xl font-bold text-slate-900 tracking-tight">Ewidencja Czasu Pracy</h1>
@@ -25,7 +25,7 @@
                 </div>
                 <div class="p-2 space-y-1 max-h-[60vh] overflow-y-auto">
                     @foreach($users as $user)
-                        <a href="{{ route('manager.work-logs.index', ['user_id' => $user->id]) }}" 
+                        <a href="{{ route('manager.work-logs.index', ['user_id' => $user->id]) }}"
                            class="flex items-center gap-3 p-3 rounded-xl text-xs font-bold transition-all {{ request('user_id') == $user->id ? 'bg-emerald-600 text-white shadow-md' : 'text-slate-600 hover:bg-slate-50' }}">
                             <div class="w-6 h-6 rounded-lg flex items-center justify-center text-[10px] {{ request('user_id') == $user->id ? 'bg-white/20 text-white' : 'bg-emerald-50 text-emerald-600' }}">
                                 {{ substr($user->name, 0, 1) }}
@@ -145,24 +145,36 @@
             <form action="{{ route('manager.work-logs.store') }}" method="POST" class="p-6 space-y-5">
                 @csrf
                 <input type="hidden" name="user_id" value="{{ $selectedUser?->id }}">
+
+                @if ($errors->any())
+                    <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl relative" role="alert">
+                        <strong class="font-bold">Wystąpił błąd!</strong>
+                        <ul class="mt-2 list-disc list-inside text-sm">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
                 <div class="space-y-4">
                     <div>
                         <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1.5">Data</label>
-                        <input type="date" name="date" x-model="selectedDate" required class="block w-full px-4 py-2 bg-slate-50 border-slate-200 rounded-xl text-sm font-medium">
+                        <input type="date" name="date" x-model="selectedDate" required class="block w-full px-4 py-2 bg-slate-50 border-slate-200 rounded-xl text-sm font-medium @error('date') border-red-500 @enderror" value="{{ old('date') }}">
                     </div>
                     <div class="grid grid-cols-2 gap-4">
                         <div>
                             <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1.5">Godzina rozpoczęcia</label>
-                            <input type="time" name="start_time" required class="block w-full px-4 py-2 bg-slate-50 border-slate-200 rounded-xl text-sm font-medium">
+                            <input type="time" name="start_time" required class="block w-full px-4 py-2 bg-slate-50 border-slate-200 rounded-xl text-sm font-medium @error('start_time') border-red-500 @enderror" value="{{ old('start_time') }}">
                         </div>
                         <div>
                             <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1.5">Godzina zakończenia</label>
-                            <input type="time" name="end_time" required class="block w-full px-4 py-2 bg-slate-50 border-slate-200 rounded-xl text-sm font-medium">
+                            <input type="time" name="end_time" required class="block w-full px-4 py-2 bg-slate-50 border-slate-200 rounded-xl text-sm font-medium @error('end_time') border-red-500 @enderror" value="{{ old('end_time') }}">
                         </div>
                     </div>
                     <div>
                         <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1.5">Opis / Zadania (opcjonalnie)</label>
-                        <textarea name="description" rows="3" class="block w-full px-4 py-2 bg-slate-50 border-slate-200 rounded-xl text-sm font-medium"></textarea>
+                        <textarea name="description" rows="3" class="block w-full px-4 py-2 bg-slate-50 border-slate-200 rounded-xl text-sm font-medium">{{ old('description') }}</textarea>
                     </div>
                 </div>
                 <button type="submit" class="w-full bg-emerald-600 text-white rounded-xl py-2.5 font-bold text-xs uppercase tracking-widest shadow-md hover:bg-emerald-700 transition-all">Zapisz</button>
