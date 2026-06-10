@@ -2,9 +2,7 @@
 
 namespace App\Providers;
 
-use App\Boost\Agents\Antigravity;
 use Illuminate\Support\ServiceProvider;
-use Laravel\Boost\BoostManager;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,9 +11,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        if ($this->app->bound(BoostManager::class)) {
-            $this->app->make(BoostManager::class)->registerAgent('antigravity', Antigravity::class);
-        }
+        //
     }
 
     /**

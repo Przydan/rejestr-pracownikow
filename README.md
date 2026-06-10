@@ -28,16 +28,16 @@ This is a Laravel 13 application designed for managing employee records with a n
    ```
 3. Set up the environment:
    ```bash
-   docker run --name rej_prac_pgdb -e POSTGRES_PASSWORD=mysecretpassword -d postgres -p 5432:5432
+   docker run --name wsb_2025_k06_p1 -e POSTGRES_PASSWORD=mysecretpassword -d postgres -p 5432:5432
    
    cp .env.example .env
    # Edit .env with your database credentials:
     DB_CONNECTION=pgsql
     # DB_HOST=127.0.0.1
     # DB_PORT=5432
-    # DB_DATABASE=merito_2025_K06_1
+    # DB_DATABASE=wsb_2025_k06_p1
     # DB_USERNAME=postgres
-    # DB_PASSWORD=mysecretpassword
+    # DB_PASSWORD=
    ```
 4. Generate application key:
    ```bash
