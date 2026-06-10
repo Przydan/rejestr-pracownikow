@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-<div x-data="{ 
-    showPreviewModal: false, 
-    previewUrl: '', 
-    previewName: '' 
+<div x-data="{
+    showPreviewModal: false,
+    previewUrl: '',
+    previewName: ''
 }" class="max-w-7xl mx-auto space-y-6">
     <!-- Header -->
     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
@@ -46,7 +46,7 @@
 
                 <div class="pt-3 border-t border-slate-50 flex justify-between items-center">
                     <span class="text-[9px] font-bold text-slate-400 uppercase">{{ strtoupper($extension) }}</span>
-                    <button @click="previewUrl = '{{ Storage::url($document->file_path) }}'; previewName = '{{ $document->name }}'; showPreviewModal = true" 
+                    <button @click="previewUrl = '{{ route('documents.download', $document) }}'; previewName = '{{ $document->name }}'; showPreviewModal = true"
                             class="text-emerald-600 font-bold text-[10px] uppercase tracking-widest hover:text-emerald-700 transition-colors">
                         Szybki Podgląd
                     </button>

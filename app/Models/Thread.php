@@ -24,6 +24,6 @@ class Thread extends Model
 
     public function messages(): HasMany
     {
-        return $this->hasMany(Message::class);
+        return $this->hasMany(Message::class)->oldest();
     }
 }

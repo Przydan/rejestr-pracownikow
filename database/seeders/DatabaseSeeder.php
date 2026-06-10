@@ -59,13 +59,13 @@ class DatabaseSeeder extends Seeder
             'author_id' => $aManager->id,
         ]);
 
-        // 5. Create Documents for employees
-        $employees->each(function ($employee) use ($admin) {
-            Document::factory(rand(1, 3))->create([
-                'user_id' => $employee->id,
-                'uploaded_by' => $admin->id,
-            ]);
-        });
+//         // 5. Create Documents for employees
+//         $employees->each(function ($employee) use ($admin) {
+//             Document::factory(rand(1, 3))->create([
+//                 'user_id' => $employee->id,
+//                 'uploaded_by' => $admin->id,
+//             ]);
+//         });
 
         // 6. Create Messaging Threads
         $employees->random(10)->each(function ($employee) use ($managers) {
