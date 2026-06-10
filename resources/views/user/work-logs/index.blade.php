@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div x-data="{ showAddLogModal: false, selectedDate: '{{ date('Y-m-d') }}' }" class="max-w-5xl mx-auto space-y-8">
+<div x-data="{ showAddLogModal: {{ $errors->any() ? 'true' : 'false' }}, selectedDate: '{{ old('date', date('Y-m-d')) }}' }" class="max-w-5xl mx-auto space-y-8">
     <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
         <div>
             <h1 class="text-3xl font-bold text-slate-900 tracking-tight">Moja Historia Pracy</h1>
@@ -123,24 +123,36 @@
             </div>
             <form action="{{ route('user.work-logs.store') }}" method="POST" class="p-6 space-y-5">
                 @csrf
+
+                @if ($errors->any())
+                    <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl relative" role="alert">
+                        <strong class="font-bold">Wystąpił błąd!</strong>
+                        <ul class="mt-2 list-disc list-inside text-sm">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
                 <div class="space-y-4">
                     <div>
                         <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1.5">Data</label>
-                        <input type="date" name="date" x-model="selectedDate" max="{{ date('Y-m-d') }}" required class="block w-full px-4 py-2 bg-slate-50 border-slate-200 rounded-xl text-sm font-medium">
+                        <input type="date" name="date" x-model="selectedDate" max="{{ date('Y-m-d') }}" required class="block w-full px-4 py-2 bg-slate-50 border-slate-200 rounded-xl text-sm font-medium @error('date') border-red-500 @enderror" value="{{ old('date') }}">
                     </div>
                     <div class="grid grid-cols-2 gap-4">
                         <div>
                             <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1.5">Godzina rozpoczęcia</label>
-                            <input type="time" name="start_time" required class="block w-full px-4 py-2 bg-slate-50 border-slate-200 rounded-xl text-sm font-medium">
+                            <input type="time" name="start_time" required class="block w-full px-4 py-2 bg-slate-50 border-slate-200 rounded-xl text-sm font-medium @error('start_time') border-red-500 @enderror" value="{{ old('start_time') }}">
                         </div>
                         <div>
                             <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1.5">Godzina zakończenia</label>
-                            <input type="time" name="end_time" required class="block w-full px-4 py-2 bg-slate-50 border-slate-200 rounded-xl text-sm font-medium">
+                            <input type="time" name="end_time" required class="block w-full px-4 py-2 bg-slate-50 border-slate-200 rounded-xl text-sm font-medium @error('end_time') border-red-500 @enderror" value="{{ old('end_time') }}">
                         </div>
                     </div>
                     <div>
                         <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1.5">Opis wykonywanych prac (opcjonalnie)</label>
-                        <textarea name="description" rows="3" placeholder="Co dziś zrobiłeś?" class="block w-full px-4 py-2 bg-slate-50 border-slate-200 rounded-xl text-sm font-medium"></textarea>
+                        <textarea name="description" rows="3" placeholder="Co dziś zrobiłeś?" class="block w-full px-4 py-2 bg-slate-50 border-slate-200 rounded-xl text-sm font-medium">{{ old('description') }}</textarea>
                     </div>
                 </div>
                 <button type="submit" class="w-full bg-emerald-600 text-white rounded-xl py-2.5 font-bold text-xs uppercase tracking-widest shadow-md hover:bg-emerald-700 transition-all">Dodaj wpis</button>

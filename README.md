@@ -33,11 +33,11 @@ This is a Laravel 13 application designed for managing employee records with a n
    cp .env.example .env
    # Edit .env with your database credentials:
     DB_CONNECTION=pgsql
-    # DB_HOST=127.0.0.1
-    # DB_PORT=5432
-    # DB_DATABASE=wsb_2025_k06_p1
-    # DB_USERNAME=postgres
-    # DB_PASSWORD=
+    DB_HOST=127.0.0.1
+    DB_PORT=5432
+    DB_DATABASE=wsb_2025_k06_p1
+    DB_USERNAME=postgres
+    DB_PASSWORD=
    ```
 4. Generate application key:
    ```bash
