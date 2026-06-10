@@ -21,6 +21,10 @@ class UserStoreRequest extends FormRequest
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'employee_id' => ['required', 'string', 'max:255', 'unique:users'],
+            'department' => ['nullable', 'string', 'max:255'],
+            'phone' => ['nullable', 'string', 'max:255'],
+            'address' => ['nullable', 'string'],
+            'notes' => ['nullable', 'string'],
             'role_id' => ['required', 'exists:roles,id'],
             'photo' => ['nullable', 'image', 'max:2048'],
         ];
