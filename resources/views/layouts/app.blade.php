@@ -40,9 +40,9 @@
                     <div class="hidden md:flex items-center gap-1">
                         @php
                             if ($isManagerOrAdmin) {
-                                $navItems[] = ['route' => $homeRoute, 'label' => 'Dashboard', 'active' => request()->routeIs(['admin.dashboard', 'manager.dashboard', 'dashboard'])];
+                                $navItems[] = ['route' => $homeRoute, 'label' => 'Panel', 'active' => request()->routeIs(['admin.dashboard', 'manager.dashboard', 'dashboard'])];
                             }
-                            
+
                             $navItems = [
                                 ['route' => 'biuletyn.index', 'label' => 'Biuletyn', 'active' => request()->routeIs('biuletyn.*')],
                                 ['route' => 'company.show', 'label' => 'O firmie', 'active' => request()->routeIs('company.show')],
@@ -62,7 +62,7 @@
                         @endphp
 
                         @foreach($navItems as $item)
-                            <a href="{{ route($item['route']) }}" 
+                            <a href="{{ route($item['route']) }}"
                                class="px-3 py-1.5 rounded-lg text-xs font-bold transition-all {{ $item['active'] ? 'text-emerald-600 bg-emerald-50/50' : 'text-slate-500 hover:text-slate-900 hover:bg-slate-50' }}">
                                 {{ $item['label'] }}
                             </a>
@@ -76,15 +76,15 @@
                         <a href="{{ route($homeRoute) }}" class="px-3 py-1.5 rounded-lg text-xs font-bold transition-all {{ request()->routeIs(['admin.dashboard', 'manager.dashboard', 'dashboard']) ? 'text-emerald-600 bg-emerald-50/50' : 'text-slate-500 hover:text-slate-900 hover:bg-slate-50' }}">
                             Mój Profil
                         </a>
-                        
+
                         <div class="flex flex-col items-end">
                             <span class="text-xs font-bold text-slate-900 leading-none">{{ $user?->name }}</span>
                             <span class="text-[9px] font-bold text-slate-400 uppercase tracking-widest mt-1">{{ $isAdmin ? 'Administrator' : ($isManager ? 'Kierownik' : 'Pracownik') }}</span>
                         </div>
-                        
+
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
-                            <button type="submit" class="p-2 text-slate-400 hover:text-rose-500 transition-colors">
+                            <button type="submit" class="p-2 text-slate-400 hover:text-rose-500 transition-colors" title="Wyloguj">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
                             </button>
                         </form>

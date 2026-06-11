@@ -40,15 +40,15 @@
                 <form method="POST" action="{{ route('login') }}" class="space-y-6">
                     @csrf
                     <div>
-                        <label for="email" class="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2 ml-1">Email</label>
-                        <input id="email" name="email" type="email" required autofocus 
+                        <label for="email" class="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2 ml-1">Adres Email</label>
+                        <input id="email" name="email" type="email" required autofocus
                                class="block w-full px-4 py-3.5 bg-slate-50 border-slate-100 rounded-xl text-slate-900 text-sm font-medium focus:bg-white focus:ring-2 focus:ring-emerald-500 transition-all placeholder:text-slate-300"
                                placeholder="twoj@email.pl">
                     </div>
 
                     <div>
                         <label for="password" class="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2 ml-1">Hasło</label>
-                        <input id="password" name="password" type="password" required 
+                        <input id="password" name="password" type="password" required
                                class="block w-full px-4 py-3.5 bg-slate-50 border-slate-100 rounded-xl text-slate-900 text-sm font-medium focus:bg-white focus:ring-2 focus:ring-emerald-500 transition-all placeholder:text-slate-300"
                                placeholder="••••••••">
                     </div>
@@ -65,7 +65,7 @@
                 </form>
             </div>
         @endauth
-        
+
         <footer class="mt-12 text-center">
             <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest italic">
                 &copy; {{ date('Y') }} Rejestr Pracowników

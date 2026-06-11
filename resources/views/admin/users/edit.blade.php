@@ -4,11 +4,11 @@
 <div class="space-y-6">
     <div class="flex justify-between items-center">
         <div>
-            <h1 class="text-2xl font-bold text-slate-900">Edit User</h1>
-            <p class="text-slate-600">Update the personal and professional details for {{ $user->name }}.</p>
+            <h1 class="text-2xl font-bold text-slate-900">Edytuj użytkownika</h1>
+            <p class="text-slate-600">Zaktualizuj dane osobowe i zawodowe dla {{ $user->name }}.</p>
         </div>
         <a href="{{ route('admin.users.index') }}" class="bg-white border border-slate-200 text-slate-700 px-6 py-2 rounded-full font-semibold text-sm transition-all hover:bg-slate-50">
-            Cancel
+            Anuluj
         </a>
     </div>
 
@@ -19,43 +19,43 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
                 <div class="space-y-1">
-                    <label for="name" class="block text-sm font-semibold text-slate-700">Full Name</label>
+                    <label for="name" class="block text-sm font-semibold text-slate-700">Imię i nazwisko</label>
                     <input type="text" name="name" id="name" value="{{ old('name', $user->name) }}" class="block w-full px-4 py-2 rounded-xl border-slate-200 shadow-sm focus:ring-emerald-500 focus:border-emerald-500 transition-all" required>
                     @error('name') <span class="text-rose-500 text-xs font-medium">{{ $message }}</span> @enderror
                 </div>
 
                 <div class="space-y-1">
-                    <label for="email" class="block text-sm font-semibold text-slate-700">Email Address</label>
+                    <label for="email" class="block text-sm font-semibold text-slate-700">Adres Email</label>
                     <input type="email" name="email" id="email" value="{{ old('email', $user->email) }}" class="block w-full px-4 py-2 rounded-xl border-slate-200 shadow-sm focus:ring-emerald-500 focus:border-emerald-500 transition-all" required>
                     @error('email') <span class="text-rose-500 text-xs font-medium">{{ $message }}</span> @enderror
                 </div>
 
                 <div class="space-y-1">
-                    <label for="password" class="block text-sm font-semibold text-slate-700">Password</label>
-                    <input type="password" name="password" id="password" class="block w-full px-4 py-2 rounded-xl border-slate-200 shadow-sm focus:ring-emerald-500 focus:border-emerald-500 transition-all" placeholder="Leave blank to keep current">
+                    <label for="password" class="block text-sm font-semibold text-slate-700">Hasło</label>
+                    <input type="password" name="password" id="password" class="block w-full px-4 py-2 rounded-xl border-slate-200 shadow-sm focus:ring-emerald-500 focus:border-emerald-500 transition-all" placeholder="Pozostaw puste, aby zachować obecne">
                     @error('password') <span class="text-rose-500 text-xs font-medium">{{ $message }}</span> @enderror
                 </div>
 
                 <div class="space-y-1">
-                    <label for="employee_id" class="block text-sm font-semibold text-slate-700">Employee ID</label>
+                    <label for="employee_id" class="block text-sm font-semibold text-slate-700">ID Pracownika</label>
                     <input type="text" name="employee_id" id="employee_id" value="{{ old('employee_id', $user->employee_id) }}" class="block w-full px-4 py-2 rounded-xl border-slate-200 shadow-sm focus:ring-emerald-500 focus:border-emerald-500 transition-all">
                     @error('employee_id') <span class="text-rose-500 text-xs font-medium">{{ $message }}</span> @enderror
                 </div>
 
                 <div class="space-y-1">
-                    <label for="department" class="block text-sm font-semibold text-slate-700">Department</label>
+                    <label for="department" class="block text-sm font-semibold text-slate-700">Dział</label>
                     <input type="text" name="department" id="department" value="{{ old('department', $user->department) }}" class="block w-full px-4 py-2 rounded-xl border-slate-200 shadow-sm focus:ring-emerald-500 focus:border-emerald-500 transition-all">
                     @error('department') <span class="text-rose-500 text-xs font-medium">{{ $message }}</span> @enderror
                 </div>
 
                 <div class="space-y-1">
-                    <label for="phone" class="block text-sm font-semibold text-slate-700">Phone Number</label>
+                    <label for="phone" class="block text-sm font-semibold text-slate-700">Numer telefonu</label>
                     <input type="text" name="phone" id="phone" value="{{ old('phone', $user->phone) }}" class="block w-full px-4 py-2 rounded-xl border-slate-200 shadow-sm focus:ring-emerald-500 focus:border-emerald-500 transition-all">
                     @error('phone') <span class="text-rose-500 text-xs font-medium">{{ $message }}</span> @enderror
                 </div>
 
                 <div class="space-y-1">
-                    <label for="role_id" class="block text-sm font-semibold text-slate-700">User Role</label>
+                    <label for="role_id" class="block text-sm font-semibold text-slate-700">Rola użytkownika</label>
                     <select name="role_id" id="role_id" class="block w-full px-4 py-2 rounded-xl border-slate-200 shadow-sm focus:ring-emerald-500 focus:border-emerald-500 transition-all">
                         @foreach($roles as $role)
                             <option value="{{ $role->id }}" {{ old('role_id', $user->roles->first()?->id) == $role->id ? 'selected' : '' }}>{{ $role->name }}</option>
@@ -67,13 +67,13 @@
 
             <div class="space-y-4">
                 <div class="space-y-1">
-                    <label for="address" class="block text-sm font-semibold text-slate-700">Address</label>
+                    <label for="address" class="block text-sm font-semibold text-slate-700">Adres</label>
                     <textarea name="address" id="address" rows="2" class="block w-full px-4 py-2 rounded-xl border-slate-200 shadow-sm focus:ring-emerald-500 focus:border-emerald-500 transition-all">{{ old('address', $user->address) }}</textarea>
                     @error('address') <span class="text-rose-500 text-xs font-medium">{{ $message }}</span> @enderror
                 </div>
 
                 <div class="space-y-1">
-                    <label for="notes" class="block text-sm font-semibold text-slate-700">Internal Notes</label>
+                    <label for="notes" class="block text-sm font-semibold text-slate-700">Notatki wewnętrzne</label>
                     <textarea name="notes" id="notes" rows="3" class="block w-full px-4 py-2 rounded-xl border-slate-200 shadow-sm focus:ring-emerald-500 focus:border-emerald-500 transition-all">{{ old('notes', $user->notes) }}</textarea>
                     @error('notes') <span class="text-rose-500 text-xs font-medium">{{ $message }}</span> @enderror
                 </div>
@@ -82,7 +82,7 @@
             <div class="space-y-6">
                 <div class="flex items-center gap-6">
                     <div class="shrink-0">
-                        <label class="block text-sm font-semibold text-slate-700 mb-2">Current Photo</label>
+                        <label class="block text-sm font-semibold text-slate-700 mb-2">Aktualne zdjęcie</label>
                         @if($user->photo_path)
                             <img src="{{ asset('storage/' . $user->photo_path) }}" alt="User photo" class="w-24 h-24 object-cover rounded-xl border border-slate-200 shadow-sm">
                         @else
@@ -92,16 +92,16 @@
                         @endif
                     </div>
                     <div class="flex-1 space-y-1">
-                        <label for="photo" class="block text-sm font-semibold text-slate-700">Update Photo</label>
+                        <label for="photo" class="block text-sm font-semibold text-slate-700">Zaktualizuj zdjęcie</label>
                         <div class="mt-1 flex justify-center px-6 py-4 border-2 border-slate-200 border-dashed rounded-xl hover:border-emerald-400 transition-colors group">
                             <div class="space-y-1 text-center">
                                 <div class="flex text-sm text-slate-600">
                                     <label for="photo" class="relative cursor-pointer rounded-md font-semibold text-emerald-600 hover:text-emerald-500">
-                                        <span>Upload new image</span>
+                                        <span>Wybierz nowy obraz</span>
                                         <input id="photo" name="photo" type="file" class="sr-only">
                                     </label>
                                 </div>
-                                <p class="text-xs text-slate-500">PNG, JPG up to 2MB</p>
+                                <p class="text-xs text-slate-500">PNG, JPG do 2MB</p>
                             </div>
                         </div>
                         @error('photo') <span class="text-rose-500 text-xs font-medium">{{ $message }}</span> @enderror
@@ -120,7 +120,7 @@
 
             <div class="flex justify-end pt-6 border-t border-slate-100 mt-6">
                 <button type="submit" class="bg-emerald-600 hover:bg-emerald-700 text-white px-8 py-3 rounded-full font-bold text-sm transition-all shadow-sm">
-                    Update User
+                    Zaktualizuj użytkownika
                 </button>
             </div>
         </form>
