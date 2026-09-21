@@ -1,7 +1,7 @@
 .PHONY: init serve test frontend db db-pg-start db-maria-start clean archive
 
 # Zmienna z nazwą projektu zgodną z wymaganiami (przykład dla K06 i projektu 1)
-PROJECT_NAME=wsb_2026_K06_1
+PROJECT_NAME=rejestr_pracownikow
 
 init:
 	composer update && composer install && php artisan key:generate && make db && make frontend
@@ -32,4 +32,4 @@ clean:
 	rm -rf vendor node_modules public/build
 
 archive: clean
-	zip -r $(PROJECT_NAME).zip . -x "*.git*" "*.idea*" "*wsb_2026_*.zip*"
+	zip -r $(PROJECT_NAME).zip . -x "*.git*" "*.idea*" "*$(PROJECT_NAME)*.zip*"

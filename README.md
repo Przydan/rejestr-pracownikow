@@ -12,8 +12,8 @@ This is a Laravel 13 application designed for managing employee records with a n
 ## Deployment Guide (Debian Linux)
 
 ### Prerequisites
-- PHP 8.4
-- MariaDB or PostgreSQL
+- PHP 8.3+
+- PostgreSQL 16+
 - Nginx or Apache
 - Composer
 
@@ -27,18 +27,19 @@ This is a Laravel 13 application designed for managing employee records with a n
    ```
 3. Set up the environment:
    ```bash
-   #pg   
-   docker run --name wsb_2025_k06_1 -e POSTGRES_PASSWORD= -d postgres -p 5432:5432
-   #mariaDB
-   $ docker run --name some-mariadb -p 3306:3306 mariadb:latest
+   docker run -d --name rejestr-pracownikow-db \
+     -e POSTGRES_PASSWORD=haslo \
+     -e POSTGRES_DB=rejestr_pracownikow \
+     -p 5432:5432 postgres:16-alpine
+
    cp .env.example .env
-   # Edit .env with your database credentials:
-    DB_CONNECTION=mysql
+   # Uzupelnij .env danymi dostepowymi do bazy:
+    DB_CONNECTION=pgsql
     DB_HOST=127.0.0.1
-    DB_PORT=3306
-    DB_DATABASE=wsb_2026_K06_1
-    DB_USERNAME=root
-    DB_PASSWORD=
+    DB_PORT=5432
+    DB_DATABASE=rejestr_pracownikow
+    DB_USERNAME=postgres
+    DB_PASSWORD=haslo
    ```
 4. Generate application key:
    ```bash
