@@ -8,13 +8,8 @@ on:
 
 jobs:
   testy:
-    name: Testy (PHP ${{ matrix.php }})
+    name: Testy
     runs-on: ubuntu-latest
-
-    strategy:
-      fail-fast: false
-      matrix:
-        php: ['8.3', '8.4']
 
     services:
       postgres:
@@ -37,7 +32,7 @@ jobs:
       - name: Skonfiguruj PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: ${{ matrix.php }}
+          php-version: '8.4'
           extensions: mbstring, iconv, intl, pdo_pgsql, pgsql, gd, bcmath, zip
           coverage: none
 
@@ -45,8 +40,8 @@ jobs:
         uses: actions/cache@v4
         with:
           path: vendor
-          key: composer-${{ matrix.php }}-${{ hashFiles('composer.lock') }}
-          restore-keys: composer-${{ matrix.php }}-
+          key: composer-8.4-${{ hashFiles('composer.lock') }}
+          restore-keys: composer-8.4-
 
       - name: Zainstaluj zaleznosci PHP
         run: composer install --no-interaction --prefer-dist --no-progress
