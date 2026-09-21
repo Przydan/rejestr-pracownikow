@@ -1,0 +1,65 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  testy:
+    name: Testy (PHP ${{ matrix.php }})
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        php: ['8.3', '8.4']
+
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_PASSWORD: mysecretpassword
+          POSTGRES_DB: rejestr_pracownikow_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Pobierz kod
+        uses: actions/checkout@v4
+
+      - name: Skonfiguruj PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: mbstring, iconv, intl, pdo_pgsql, pgsql, gd, bcmath, zip
+          coverage: none
+
+      - name: Cache zaleznosci Composera
+        uses: actions/cache@v4
+        with:
+          path: vendor
+          key: composer-${{ matrix.php }}-${{ hashFiles('composer.lock') }}
+          restore-keys: composer-${{ matrix.php }}-
+
+      - name: Zainstaluj zaleznosci PHP
+        run: composer install --no-interaction --prefer-dist --no-progress
+
+      - name: Przygotuj srodowisko
+        run: |
+          cp .env.example .env
+          php artisan key:generate
+
+      - name: Zbuduj zasoby frontendu
+        run: |
+          npm ci
+          npm run build
+
+      - name: Uruchom testy
+        run: php artisan test
